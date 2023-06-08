@@ -3,18 +3,36 @@
 #include "tabelaHash.h"
 
 int main(){
-	imprimirDadosAlunos();
     size_t tam;
+    char op;
+    int val;
+	imprimirDadosAlunos();
     scanf("%ld", &tam);
 
     struct listaHash* tabela = gerarTabelaHash(tam);
-    inserir(&tabela, tam, 1000);
-    inserir(&tabela, tam, 100);
-
-
-    printf("%d", tabela[0].inicio->chave);
-    printf("%d", tabela[0].fim->chave);
-
+    scanf("%c", &op);
+    while (op != 'f') {
+        switch (op) {
+        case 'i':
+            scanf("%d", &val);
+            inserir(&tabela, tam, val);        
+            break;
+        case 'r':
+            scanf("%d", &val);
+            
+            break;
+        case 'b':
+            scanf("%d", &val);
+            
+            break;
+        case 'l':
+            imprimirTabelaHash(&tabela, tam);    
+            break;
+        default:
+            break;
+        }
+        scanf("%c", &op);
+    }
     
     return 0;
 }

@@ -54,23 +54,26 @@ void imprimirDadosAlunos() {
     free(aluno);
 }
 
-struct nodoHash* geraNodoHash(int chave){
+struct nodoHash* geraNodoHash(int chave) {
     struct nodoHash* nodo = malloc(sizeof(struct nodoHash));
+
     if (!nodo)
         matarProgramaFaltaMemoria();
-    
     nodo->chave = chave;
     nodo->ant = NULL;
     nodo->prox = NULL;
+
     return nodo;
 }
 
-struct listaHash* gerarTabelaHash(size_t tamTabela){
+struct listaHash* gerarTabelaHash(size_t tamTabela) {
     struct listaHash* lista = malloc(sizeof(struct listaHash) * tamTabela);
+
     if (!lista)
         matarProgramaFaltaMemoria();
 
     for (size_t i = 0; i < tamTabela; i++){
+        printf("%ld", i);
         lista[i].inicio = NULL;
         lista[i].fim = NULL;
     }
@@ -78,15 +81,16 @@ struct listaHash* gerarTabelaHash(size_t tamTabela){
     return lista;
 }
 
-size_t encontraPosicao(size_t tamTabela, int chave){
+size_t encontraPosicao(size_t tamTabela, unsigned int chave) {
     return chave % tamTabela;
 }
 
-struct nodoHash* inserir(struct listaHash* tabelaHash[], size_t tamTabela, int chave){
+struct nodoHash* inserir(struct listaHash* tabelaHash[], size_t tamTabela, int chave) {
     struct nodoHash* nodo = geraNodoHash(chave);
     size_t pos = encontraPosicao(tamTabela, chave);
 
     /* lembrar de fazeer a busca para evitar duplicatas */
+    printf(" %ld \n", pos);
 
     if (tabelaHash[pos]->inicio == NULL){
         tabelaHash[pos]->inicio = nodo;
@@ -100,18 +104,30 @@ struct nodoHash* inserir(struct listaHash* tabelaHash[], size_t tamTabela, int c
     return nodo;
 }
 
-void liberarTabelaHash(struct listaHash* tabelaHash[], size_t tamTabela){
+void liberarTabelaHash(struct listaHash* tabelaHash[], size_t tamTabela) {
 
 }
 
-void imprimirTabelaHash(struct listaHash* tabelaHash[], size_t tamTabela){
+void imprimirTabelaHash(struct listaHash* tabelaHash[], size_t tamTabela) {
+    struct nodoHash* nodo; 
 
+    for (size_t i = 0; i < tamTabela; i++) {
+        printf("%ld ", i);
+        nodo = tabelaHash[i]->inicio;
+        while (nodo != NULL) {
+            printf("[%d] -> ", nodo->chave);
+            nodo = nodo->prox;
+        }
+        printf("NULL\n");
+    }
+
+    return;
 }
 
-struct nodoHash* buscar(struct listaHash* tabelaHash[], size_t tamTabela, int chave){
+struct nodoHash* buscar(struct listaHash* tabelaHash[], size_t tamTabela, int chave) {
     return NULL;
 }
 
-void excluir(struct listaHash* tabelaHash[], size_t tamTabela, struct nodoHash* nodo){
+void excluir(struct listaHash* tabelaHash[], size_t tamTabela, struct nodoHash* nodo) {
     
 }
