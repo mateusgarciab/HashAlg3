@@ -72,8 +72,7 @@ struct listaHash* gerarTabelaHash(size_t tamTabela) {
     if (!lista)
         matarProgramaFaltaMemoria();
 
-    for (size_t i = 0; i < tamTabela; i++){
-        printf("%ld", i);
+    for (size_t i = 0; i < tamTabela; i++) {
         lista[i].inicio = NULL;
         lista[i].fim = NULL;
     }
@@ -85,35 +84,35 @@ size_t encontraPosicao(size_t tamTabela, unsigned int chave) {
     return chave % tamTabela;
 }
 
-struct nodoHash* inserir(struct listaHash* tabelaHash[], size_t tamTabela, int chave) {
+struct nodoHash* inserir(struct listaHash tabelaHash[], size_t tamTabela, int chave) {
     struct nodoHash* nodo = geraNodoHash(chave);
     size_t pos = encontraPosicao(tamTabela, chave);
 
     /* lembrar de fazeer a busca para evitar duplicatas */
     printf(" %ld \n", pos);
 
-    if (tabelaHash[pos]->inicio == NULL){
-        tabelaHash[pos]->inicio = nodo;
-        tabelaHash[pos]->fim = nodo;
+    if (tabelaHash[pos].inicio == NULL){
+        tabelaHash[pos].inicio = nodo;
+        tabelaHash[pos].fim = nodo;
     } else {
-        nodo->ant = tabelaHash[pos]->fim;
-        tabelaHash[pos]->fim = nodo;
+        nodo->ant = tabelaHash[pos].fim;
+        tabelaHash[pos].fim = nodo;
         nodo->ant->prox = nodo;
     }
 
     return nodo;
 }
 
-void liberarTabelaHash(struct listaHash* tabelaHash[], size_t tamTabela) {
+void liberarTabelaHash(struct listaHash tabelaHash[], size_t tamTabela) {
 
 }
 
-void imprimirTabelaHash(struct listaHash* tabelaHash[], size_t tamTabela) {
+void imprimirTabelaHash(struct listaHash tabelaHash[], size_t tamTabela) {
     struct nodoHash* nodo; 
 
     for (size_t i = 0; i < tamTabela; i++) {
         printf("%ld ", i);
-        nodo = tabelaHash[i]->inicio;
+        nodo = tabelaHash[i].inicio;
         while (nodo != NULL) {
             printf("[%d] -> ", nodo->chave);
             nodo = nodo->prox;
@@ -124,10 +123,10 @@ void imprimirTabelaHash(struct listaHash* tabelaHash[], size_t tamTabela) {
     return;
 }
 
-struct nodoHash* buscar(struct listaHash* tabelaHash[], size_t tamTabela, int chave) {
+struct nodoHash* buscar(struct listaHash tabelaHash[], size_t tamTabela, int chave) {
     return NULL;
 }
 
-void excluir(struct listaHash* tabelaHash[], size_t tamTabela, struct nodoHash* nodo) {
+void excluir(struct listaHash tabelaHash[], size_t tamTabela, struct nodoHash* nodo) {
     
 }

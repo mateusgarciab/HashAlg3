@@ -15,7 +15,7 @@ int main(){
         switch (op) {
         case 'i':
             scanf("%d", &val);
-            inserir(&tabela, tam, val);        
+            inserir(tabela, tam, val);        
             break;
         case 'r':
             scanf("%d", &val);
@@ -26,7 +26,7 @@ int main(){
             
             break;
         case 'l':
-            imprimirTabelaHash(&tabela, tam);    
+            imprimirTabelaHash(tabela, tam);    
             break;
         default:
             break;

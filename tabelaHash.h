@@ -32,18 +32,18 @@ struct listaHash* gerarTabelaHash(size_t tamTabela);
 
 //insere a chave na tabela hash. Duplicatas não são permitidas.
 //Retorna o nodo inserido, ou NULL em caso de problemas (ex.: caso a chave seja uma duplicata)
-struct nodoHash* inserir(struct listaHash* tabelaHash[], size_t tamTabela, int chave);
+struct nodoHash* inserir(struct listaHash tabelaHash[], size_t tamTabela, int chave);
 
 //deleta a tabela hash
-void liberarTabelaHash(struct listaHash* tabelaHash[], size_t tamTabela);
+void liberarTabelaHash(struct listaHash tabelaHash[], size_t tamTabela);
 
 //imprime na tela a tabela completa
-void imprimirTabelaHash(struct listaHash* tabelaHash[], size_t tamTabela);
+void imprimirTabelaHash(struct listaHash tabelaHash[], size_t tamTabela);
 
 //busca o nodo com o chave, ou retorna NULL caso tal nodo não exista
-struct nodoHash* buscar(struct listaHash* tabelaHash[], size_t tamTabela, int chave);
+struct nodoHash* buscar(struct listaHash tabelaHash[], size_t tamTabela, int chave);
 
 //exclui o nodo apontado
-void excluir(struct listaHash* tabelaHash[], size_t tamTabela, struct nodoHash* nodo);
+void excluir(struct listaHash tabelaHash[], size_t tamTabela, struct nodoHash* nodo);
 
 #endif // TABELA_HASH_H
