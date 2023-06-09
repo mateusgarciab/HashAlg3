@@ -85,13 +85,15 @@ size_t encontraPosicao(size_t tamTabela, unsigned int chave) {
 }
 
 struct nodoHash* inserir(struct listaHash tabelaHash[], size_t tamTabela, int chave) {
-    struct nodoHash* nodo = geraNodoHash(chave);
+    struct nodoHash* nodo;
     size_t pos = encontraPosicao(tamTabela, chave);
 
-    /* lembrar de fazeer a busca para evitar duplicatas */
-    printf(" %ld \n", pos);
+    nodo = buscar(tabelaHash, tamTabela, chave);// verifica se a chave já existe na tabela
+    if (nodo != NULL)
+        return NULL;
 
-    if (tabelaHash[pos].inicio == NULL){
+    nodo = geraNodoHash(chave);
+    if (tabelaHash[pos].inicio == NULL){ // caso a lista esteja vazia
         tabelaHash[pos].inicio = nodo;
         tabelaHash[pos].fim = nodo;
     } else {
@@ -104,7 +106,19 @@ struct nodoHash* inserir(struct listaHash tabelaHash[], size_t tamTabela, int ch
 }
 
 void liberarTabelaHash(struct listaHash tabelaHash[], size_t tamTabela) {
+    struct nodoHash* nodo, *prox;
 
+    for (size_t i = 0; i < tamTabela; i++) {
+        nodo = tabelaHash[i].inicio;
+        while (nodo != NULL) {
+            prox = nodo->prox;
+            free(nodo);
+            nodo = prox;
+        }
+    }
+    free(tabelaHash);
+
+    return;
 }
 
 void imprimirTabelaHash(struct listaHash tabelaHash[], size_t tamTabela) {
@@ -124,9 +138,46 @@ void imprimirTabelaHash(struct listaHash tabelaHash[], size_t tamTabela) {
 }
 
 struct nodoHash* buscar(struct listaHash tabelaHash[], size_t tamTabela, int chave) {
+    size_t pos = encontraPosicao(tamTabela, chave);
+    struct nodoHash* nodo = tabelaHash[pos].inicio;
+
+    while (nodo != NULL) { //procura em toda a lista do indice encontrado por encontraPosicao
+        if (nodo->chave == chave)
+            return nodo;
+
+        nodo = nodo->prox;
+    }
+
     return NULL;
 }
 
 void excluir(struct listaHash tabelaHash[], size_t tamTabela, struct nodoHash* nodo) {
-    
+    size_t pos = encontraPosicao(tamTabela, nodo->chave);
+
+    if ((nodo->prox == NULL) && (nodo->ant == NULL)) { //unico elemento da lista
+        free(nodo);
+        tabelaHash[pos].inicio = NULL;
+        tabelaHash[pos].fim = NULL;
+        return;
+    }
+
+    if (nodo->prox == NULL) { //ultimo da lista
+        nodo->ant->prox = NULL;
+        tabelaHash[pos].fim = nodo->ant;
+        free(nodo);
+        return;
+    }
+
+    if (nodo->ant == NULL) { //primeiro da lista
+        nodo->prox->ant = NULL;
+        tabelaHash[pos].inicio = nodo->prox;
+        free(nodo);
+        return;
+    }
+    //caso geral
+    nodo->ant->prox = nodo->prox;
+    nodo->prox->ant = nodo->ant;
+    free(nodo);
+
+    return;
 }
